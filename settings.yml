@@ -42,7 +42,7 @@ firewall:
 # Note: if you overwrite one of these option dictionary, make sure you have all of its sub variable.
 # also, you may want to check the interface you want to use by vagrant ssh to the box first.
 isc_dhcp_server:
-  interface: wlan1
+  interface: wlan0
   network : 12.0.0.0
   netmask : 255.255.255.0
   gateway : 12.0.0.1
@@ -52,7 +52,7 @@ isc_dhcp_server:
 
 # Overwrite hostapd settings
 hostapd_conf:
-  interface : 'wlan1'
+  interface : 'wlan0'
   ssid : 'sanpentest'
   channel : '10'
   macaddr_acl : '0'

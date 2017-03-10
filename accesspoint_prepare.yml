@@ -7,18 +7,18 @@
     - name: just an echo
       debug:
         msg: "Let the game begin."
-    # - name: Adding multiverse repositories
-    #   apt_repository:
-    #     repo: "{{ item }}"
-    #   register: multiverse_installed
-    #   with_items:
-    #     - 'deb http://archive.ubuntu.com/ubuntu trusty multiverse'
-    #     - 'deb-src http://archive.ubuntu.com/ubuntu trusty multiverse'
-    #     - 'deb http://archive.ubuntu.com/ubuntu trusty-updates multiverse'
-    #     - 'deb-src http://archive.ubuntu.com/ubuntu trusty-updates multiverse'
-    # - name: Update apt cache
-    #   apt:
-    #     update_cache: yes
+    - name: Adding multiverse repositories
+      apt_repository:
+        repo: "{{ item }}"
+      register: multiverse_installed
+      with_items:
+        - 'deb http://archive.ubuntu.com/ubuntu trusty multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu trusty multiverse'
+        - 'deb http://archive.ubuntu.com/ubuntu trusty-updates multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu trusty-updates multiverse'
+    - name: Update apt cache
+      apt:
+        update_cache: yes
   roles:
     # Some common tools
     - roles/linux-generic
@@ -28,6 +28,7 @@
     - roles/isc_dhcp_server
     - roles/wireless_tools
     - roles/hostapd
+    - roles/mitmproxy
     #The following 2 roles are for attacking bluetooth stack
     # - roles/bluez
     # - roles/bluetoothattack
@@ -37,3 +38,4 @@
           If this is the first time, You need to do 'vagrant reload' now after install linux-generic
           Once you reboot the box, it is good to go.
           'vagrant provision --provision-with createAP' will run required deamon to start a Access Point for ya!
+          Execute 'vagrant ssh -c "iwconfig " ' to find the interface and edit settings.yml appropriately
