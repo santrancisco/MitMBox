@@ -3,8 +3,7 @@
   sudo: true
   vars_files:
     - settings.yml
-  tasks:
-
+  pre_tasks:
     - name: Make sure hostapd service has stopped
       service: name=hostapd enabled=no state=stopped
       become: true
@@ -16,6 +15,12 @@
     - name: bring down the interface
       command: ifconfig {{hostapd_conf.interface}} down
       become: true
+      
+  roles:
+    # Update hostapd and dhcp server with latest config
+    - roles/isc_dhcp_server
+    - roles/hostapd
+  tasks:
 
     - name: configure hostapd interface
       command: ifconfig {{hostapd_conf.interface}} up {{isc_dhcp_server.gateway}} netmask {{isc_dhcp_server.netmask}}
