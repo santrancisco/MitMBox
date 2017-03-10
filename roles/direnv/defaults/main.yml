@@ -1,0 +1,3 @@
+direnv:
+  download_url: https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64
+  bin_sha256: 5ca55cf91ac2cd2854a093a0c37fbeeb212c4cd551677ae3a738b291ab86bc2b

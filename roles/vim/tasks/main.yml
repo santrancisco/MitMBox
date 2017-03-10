@@ -1,0 +1,5 @@
+---
+- name: install vim
+  sudo: yes
+  apt: pkg=vim state=installed
+  tags: vim

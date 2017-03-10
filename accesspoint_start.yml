@@ -1,0 +1,30 @@
+---
+- hosts: all
+  sudo: true
+  vars_files:
+    - settings.yml
+  tasks:
+
+    - name: Make sure hostapd service has stopped
+      service: name=hostapd enabled=no state=stopped
+      become: true
+
+    - name: Make sure isc-dhcp-server service has stopped
+      service: name=isc-dhcp-server enabled=no state=stopped
+      become: true
+
+    - name: bring down the interface
+      command: ifconfig {{hostapd_conf.interface}} down
+      become: true
+
+    - name: configure hostapd interface
+      command: ifconfig {{hostapd_conf.interface}} up {{isc_dhcp_server.gateway}} netmask {{isc_dhcp_server.netmask}}
+      become: true
+
+    - name: start hostapd
+      service: name=hostapd enabled=no state=restarted
+      become: true
+
+    - name: start dhcpd
+      service: name=isc-dhcp-server enabled=no state=restarted
+      become: true

@@ -1,0 +1,49 @@
+---
+- name: debug
+  ## Somehow colon does weird thing! in this case there cannot be a space behind it :-/
+  debug: msg="Downloading from:https://www.kernel.org/pub/linux/bluetooth/bluez-{{ bluez.version }}.tar.xz"
+
+- name: download
+  sudo: true
+  get_url:
+    url: https://www.kernel.org/pub/linux/bluetooth/bluez-{{ bluez.version }}.tar.xz
+    dest: /tmp/
+    owner: root
+    group: root
+    mode: 0755
+
+- name: unpack
+  sudo: true
+  unarchive:
+    src: /tmp/bluez-{{ bluez.version }}.tar.xz
+    dest: /tmp/
+    #remote_src: true
+    copy: false
+
+- name: install dependencies
+  sudo: yes
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - libglib2.0-0
+    - libglib2.0-dev
+    - libdbus-1-dev
+    - libudev-dev
+    - libical-dev
+    - libreadline-dev
+
+## Installing Bluez
+- name: Running ./configure for Bluez
+  sudo: true
+  command: ./configure --disable-systemd --enable-library
+  args:
+    chdir: "/tmp/bluez-{{ bluez.version }}"
+## Or we can declare as follow which does the same thing: (with_items let you run multiple commands)
+- name: Running "make" for Bluez
+  sudo: true
+  command: '"{{ item }}" chdir=/tmp/bluez-{{ bluez.version }}'
+  with_items:
+    - make
+# The shortest way
+- name: Running "make install" for Bluez
+  sudo: true
+  command: 'make install chdir=/tmp/bluez-{{ bluez.version }}'

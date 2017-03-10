@@ -1,0 +1,5 @@
+---
+- name: install linux-generic
+  sudo: yes
+  apt: pkg=linux-generic state=installed
+  tags: linux-generic

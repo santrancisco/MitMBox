@@ -1,0 +1,9 @@
+---
+- name: Make parent folder
+  sudo: true
+  command: mkdir {{ bluetoothattack.directory }}
+- name: Download pibeacon - script to spoof ble beacon
+  sudo: true
+  git:
+    repo: https://github.com/sylvainemery/pibeacon
+    dest: {{ bluetoothattack.directory }}/pibeacon

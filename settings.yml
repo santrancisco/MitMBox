@@ -1,0 +1,69 @@
+# Execute `VBoxManage list usbhost`
+# Get the list of devices you want to connect to the guest
+# machine and listed here
+
+## This is an array of devices, hence the "-"
+devices:
+  - name : "Alfa Wifi dongle"
+    vendorid : "0x148f"
+    productid : "0x2770"
+    type : "wifi"
+    bridge : true
+    enabled: false
+  - name : "TPLINK Wifi dongle"
+    vendorid : "0x0bda"
+    productid: "0x8178"
+    type : "wifi"
+    bridge : true
+    enabled: true
+  - name : "CSR8510"
+    vendorid : "0x0a12"
+    productid: "0x0001"
+    bluetooth : true
+    enabled : true
+    type : "bluetooth"
+
+
+## this is a dictionary of setting ()
+dns:
+  blocklist : ["xkcd.com"]
+  nullroute : "127.0.0.1"
+  loglevel  : 1
+
+firewall:
+  tcp :
+    allow : []
+    deny  : []
+  udp :
+    allow : []
+    deny  : []
+
+
+# Note: if you overwrite one of these option dictionary, make sure you have all of its sub variable.
+# also, you may want to check the interface you want to use by vagrant ssh to the box first.
+isc_dhcp_server:
+  interface: wlan1
+  network : 12.0.0.0
+  netmask : 255.255.255.0
+  gateway : 12.0.0.1
+  proxy   : 12.0.0.1
+  nameserver : 12.0.0.1
+  range: "12.0.0.3 12.0.0.20"
+
+# Overwrite hostapd settings
+hostapd_conf:
+  interface : 'wlan1'
+  ssid : 'sanpentest'
+  channel : '10'
+  macaddr_acl : '0'
+  auth_algs : '1'
+  wpa : '2'
+  hw_mode : 'g'
+  wpa_passphrase : 'awesomepasswordhere'
+  wpa_key_mgmt : 'WPA-PSK'
+  wpa_pairwise : 'CCMP'
+  rsn_pairwise : 'CCMP'
+
+# Overwriting bluez version to download
+bluez:
+  version: "5.43"

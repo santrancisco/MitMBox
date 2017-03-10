@@ -1,0 +1,14 @@
+# First conf file ran through confTOAnsible.py with following command:
+# python confToAnsible.py -d "=" -t ./roles/hostapd/ ./roles/hostapd/templates/hostapd.conf
+# Output templates/hostapd.j2 template & defaults/hostapd.conf.yml
+interface={{hostapd_conf.interface}}
+ssid={{hostapd_conf.ssid}}
+channel={{hostapd_conf.channel}}
+macaddr_acl={{hostapd_conf.macaddr_acl}}
+auth_algs={{hostapd_conf.auth_algs}}
+hw_mode={{hostapd_conf.hw_mode}}
+wpa={{hostapd_conf.wpa}}
+wpa_passphrase={{hostapd_conf.wpa_passphrase}}
+wpa_key_mgmt={{hostapd_conf.wpa_key_mgmt}}
+wpa_pairwise={{hostapd_conf.wpa_pairwise}}
+rsn_pairwise={{hostapd_conf.rsn_pairwise}}

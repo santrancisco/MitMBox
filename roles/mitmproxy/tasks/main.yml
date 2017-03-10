@@ -1,0 +1,5 @@
+---
+- name: install mitmproxy
+  sudo: yes
+  apt: pkg=mitmproxy state=installed
+  tags: mitmproxy

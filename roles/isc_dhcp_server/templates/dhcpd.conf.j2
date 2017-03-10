@@ -1,0 +1,28 @@
+ddns-update-style none;
+ignore client-updates;
+# pid-file-name "/tmp/dhcpd.pid" ;
+authoritative;
+option local-wpad code 252 = text;
+
+ subnet
+ {{isc_dhcp_server.network}} netmask {{isc_dhcp_server.netmask}} {
+ # --- default gateway
+ option routers
+ {{isc_dhcp_server.gateway}};
+ # --- Netmask
+ option subnet-mask
+ {{isc_dhcp_server.netmask}};
+ # --- Broadcast Address
+ # option broadcast-address
+ # 12.0.0.255;
+ # --- Domain name servers, tells the clients which DNS servers to use.
+ option domain-name-servers
+ {{isc_dhcp_server.nameserver}};
+ option time-offset
+ 0;
+ #option wpad-url
+ # "http://13.0.0.1:9999/proxy.pac\n";
+ range {{isc_dhcp_server.range}};
+ default-lease-time 1209600;
+ max-lease-time 1814400;
+ }

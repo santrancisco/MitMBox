@@ -1,0 +1,8 @@
+isc_dhcp_server:
+  interface: wlan0
+  network : 12.0.0.0
+  netmask : 255.255.255.0
+  gateway : 12.0.0.1
+  proxy   : 12.0.0.1
+  nameserver : 12.0.0.1
+  range: "12.0.0.3 12.0.0.20"

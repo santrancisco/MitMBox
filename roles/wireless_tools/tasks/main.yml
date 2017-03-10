@@ -1,0 +1,5 @@
+---
+- name: install wireless-tools
+  sudo: yes
+  apt: pkg=wireless-tools state=installed
+  tags: wireless-tools
