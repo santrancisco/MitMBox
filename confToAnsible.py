@@ -1,3 +1,5 @@
+## This script take a .conf file (eg, configuration file hostapd.conf) and create an ansible default & a template file from it.
+
 #!/usr/local/bin/python
 
 import argparse
@@ -54,9 +56,11 @@ if __name__ == '__main__':
     a.writedefault(ansibleglobalvar + ":")
     for line in f.readlines():
         line = line.strip()
+        ## If the line is not commented out and containes <SOMETHING> = <SOMEVALUE>, we will include it
         if (not re.match("^ *#",line) and (re.match("^.+=.+",line))):
             varname = line[:line.index(args.delimeter)]
             defaultvar = line[(line.index(args.delimeter)+1):]
+            ## append to template file and default file with the new variable.
             a.writetemplate(varname + args.delimeter +"{{"+ ansibleglobalvar+"."+cleanvar(varname) +"}}")
             a.writedefault("  "+varname+ " : '"+defaultvar+"'")
         else:
